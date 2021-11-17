@@ -1,1 +1,1 @@
-# detailed-sprint-planning
+# Web application for detailed sprint planning
