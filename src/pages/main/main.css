@@ -1,0 +1,7 @@
+.main-container {
+    background-color: aqua;
+    min-width: 512px;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
