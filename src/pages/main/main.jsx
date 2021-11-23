@@ -2,9 +2,9 @@ import './main.css';
 import {useEffect} from "react";
 import {useSelector} from "react-redux";
 // components
-import MainHeader from '../../components/main-header/main-header';
-import MainFooter from '../../components/main-footer/main-footer';
-import IssueTable from '../../components/issue-table/issue-table';
+import MainHeader from './components/main-header/main-header';
+import MainFooter from './components/main-footer/main-footer';
+import IssueTable from './components/issue-table/issue-table';
 // selectors
 import {getCurrentSprint} from "../../redux/sprints/sprints-selectors";
 import {loadSprints, loadTeam, loadIssues, LoadDays} from '../../integration/data-integration';
@@ -17,7 +17,7 @@ function Main() {
     const team = useSelector(getTeam);
     const issues = useSelector(getIssues);
     const days = useSelector(getDays);
-    console.log(sprint, team);
+
     useEffect(() => {
         if (!sprint) {
             loadSprints();
@@ -35,7 +35,7 @@ function Main() {
     return(
         <div className="main-container">
             <MainHeader />
-            <IssueTable />
+            <IssueTable issues={issues}/>
             <MainFooter />
         </div>
     )

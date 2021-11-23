@@ -50,7 +50,7 @@ const issuesData = [
         "status": "in progress",
     },
     {
-        "id": 2,
+        "id": 278433,
         "description": 'Set up GIT',
         "status": "done",
     },
@@ -60,7 +60,7 @@ const issuesData = [
         "status": "to do",
     },
     {
-        "id": 4,
+        "id": 487464443,
         "description": 'Set up hosting',
         "status": "to do",
     },
