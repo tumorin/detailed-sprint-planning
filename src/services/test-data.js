@@ -74,7 +74,7 @@ const issuesData = [
 const daysData = [
     {
         "sprintID": 3,
-        "dayNumber": 1,
+        "dayNumber": 5,
         "issueID": 1,
         "workWith": [
             "YT",
@@ -92,9 +92,18 @@ const daysData = [
     {
         "sprintID": 3,
         "dayNumber": 1,
-        "issueID": 2,
+        "issueID": 487464443,
         "workWith": [
             "SJ"
+        ]
+    },
+    {
+        "sprintID": 2,
+        "dayNumber": 1,
+        "issueID": 2,
+        "workWith": [
+            "YT",
+            "BG"
         ]
     },
 ]

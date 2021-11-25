@@ -3,12 +3,16 @@ import IssueList from './IssueList/IssueList';
 import Schedule from './Schedule/Schedule';
 
 
-function IssueTable({issues}) {
+function IssueTable({issues, sprint, days}) {
 
     return(
         <div className="issue-table-container">
             <IssueList issues={issues}/>
-            <Schedule />
+            <Schedule
+                issues={issues}
+                sprint={sprint}
+                days={days}
+            />
         </div>
     )
 }

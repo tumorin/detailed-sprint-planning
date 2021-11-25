@@ -5,7 +5,7 @@ import {setTeam} from "../redux/team/team-actions";
 import {setIssues} from "../redux/issues/issues-actions";
 import {setDays} from "../redux/days/days-actions";
 
-// TODO: change to integration with backend
+// TODO: change to services with backend
 export const loadSprints = () => {
     store.dispatch(setSprints(sprintsData));
 }

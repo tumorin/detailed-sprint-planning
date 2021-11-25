@@ -7,16 +7,16 @@ import MainFooter from './components/main-footer/main-footer';
 import IssueTable from './components/issue-table/issue-table';
 // selectors
 import {getCurrentSprint} from "../../redux/sprints/sprints-selectors";
-import {loadSprints, loadTeam, loadIssues, LoadDays} from '../../integration/data-integration';
+import {loadSprints, loadTeam, loadIssues, LoadDays} from '../../services/data-integration';
 import {getTeam} from "../../redux/team/team-selectors";
 import {getIssues} from "../../redux/issues/issue-selector";
-import {getDays} from '../../redux/days/days-selectors'
+import {getDaysBySprintId} from '../../redux/days/days-selectors'
 
 function Main() {
     const sprint = useSelector(getCurrentSprint);
     const team = useSelector(getTeam);
     const issues = useSelector(getIssues);
-    const days = useSelector(getDays);
+    const days = useSelector( (store) => getDaysBySprintId(store, sprint));
 
     useEffect(() => {
         if (!sprint) {
@@ -35,7 +35,11 @@ function Main() {
     return(
         <div className="main-container">
             <MainHeader />
-            <IssueTable issues={issues}/>
+            <IssueTable
+                issues={issues}
+                sprint={sprint}
+                days={days}
+            />
             <MainFooter />
         </div>
     )

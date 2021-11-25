@@ -25,6 +25,5 @@ export default function IssueList({issues}) {
                 {issueElems}
             </div>
         </>
-
     )
 }

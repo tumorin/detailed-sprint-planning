@@ -1,0 +1,32 @@
+.schedule-container {
+    /*width: 50%;*/
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: anywhere;
+    font-size: 15px;
+}
+.schedule-heading {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid grey;
+    padding: 10px;
+    /*font-weight: bold;*/
+}
+
+.schedule-heading-cell {
+    width: 5rem;
+}
+
+.schedule-row {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid grey;
+    padding: 10px;
+}
+
+.schedule-issue-day {
+    /*border: 1px solid grey;*/
+    width: 5rem;
+    height: 3rem;
+}

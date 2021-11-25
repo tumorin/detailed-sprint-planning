@@ -1,3 +1,8 @@
 const getDays = store => store.days;
 
-export {getDays};
+const getDaysBySprintId = (store, sprint) => {
+    if (!sprint) return [];
+    return getDays(store).filter(day => day.sprintID === sprint.id);
+}
+
+export {getDaysBySprintId};
