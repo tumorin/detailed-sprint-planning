@@ -1,4 +1,5 @@
 import './Schedule.css';
+import AllyLabel from "../../AllyLabel/AllyLabel";
 
 function prepareDayList(issues, sprint, days) {
     const sprintStart = new Date(sprint.start);
@@ -37,8 +38,17 @@ const renderRow = (issue) => {
     // issue.schedule.forEach( value => console.log(value))
     return (
         issue.schedule.map((issueDay, index) => {
-            return (
-                <div className="schedule-issue-day" key={index}>{issueDay}</div>
+            console.log('issueDay',issueDay);
+            if (Array.isArray(issueDay)) {
+                return (
+                    <div className="schedule-issue-day" key={index}>
+                        {issueDay.map(label => <AllyLabel label={label}/>)}
+                    </div>
+                    )
+            } else  return (
+                <div className="schedule-issue-day" key={index}>
+                    {issueDay}
+                </div>
             )
         })
     )
