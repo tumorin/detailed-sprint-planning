@@ -12,6 +12,7 @@
     border: 1px solid grey;
     padding: 10px;
     font-weight: bold;
+    height: 48px;
 }
 
 .schedule-heading-cell {

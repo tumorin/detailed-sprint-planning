@@ -10,8 +10,8 @@ export default function IssueList({issues}) {
                 <div className="issue-list-description">
                     {description}
                 </div>
-                <button className="action-button "><span className="fa fa-edit delete-icon"></span></button>
-                <button className="action-button "><span className="fa fa-trash delete-icon"></span></button>
+                <button className="action-button "><span className="fa fa-edit "></span></button>
+                <button className="action-button "><span className="fa fa-trash "></span></button>
             </div>
         )
     })
@@ -21,6 +21,7 @@ export default function IssueList({issues}) {
                 <div className="issue-list-heading">
                     <div className="issue-list-id">№</div>
                     <div className="issue-list-description">Description</div>
+                    <button className="issue-list-add-button"><span className="fa fa-plus-circle"></span></button>
                 </div>
                 {issueElems}
             </div>
