@@ -78,7 +78,8 @@ const daysData = [
         "issueID": 1,
         "workWith": [
             "YT",
-            "BG"
+            "BG",
+
         ]
     },
     {

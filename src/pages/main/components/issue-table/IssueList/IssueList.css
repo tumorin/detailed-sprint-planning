@@ -48,16 +48,15 @@
 }
 
 .action-button {
-    /*position: fixed;*/
-    /*border: 0.1875em solid #0F1C3F;*/
     border-radius: 50%;
     box-shadow: 0.375em 0.375em 0 0 rgba(15, 28, 63, 0.125);
     height: 45px;
     width: 45px;
-    /*margin-left: 10px;*/
     margin-right: 5px;
     background-color: #229cc2;
-    padding: 0px 0px;
+    padding: 0px 10px;
+    position: relative;
+    left: -40px;
     /*opacity: 0;*/
     visibility: hidden;
     transition: 1.5s opacity;

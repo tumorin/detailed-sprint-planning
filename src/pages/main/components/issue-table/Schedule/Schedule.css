@@ -11,7 +11,7 @@
     flex-direction: row;
     border: 1px solid grey;
     padding: 10px;
-    /*font-weight: bold;*/
+    font-weight: bold;
 }
 
 .schedule-heading-cell {
