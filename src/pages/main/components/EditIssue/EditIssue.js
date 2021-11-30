@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import {useState} from "react";
 import {useSelector} from "react-redux";
 import {getTeam} from "../../../../redux/team/team-selectors";
+import AllyLabel from "../AllyLabel/AllyLabel";
 
 export default function EditIssue({active, setActive}) {
     const [issueId, setIssueId] = useState('');
@@ -77,9 +78,10 @@ export default function EditIssue({active, setActive}) {
                         {assigneedList.map(assigned => {
                             return (
                                 <div className="edit-issue-assigned-row">
-                                    {/*<div>{assigned.ally}</div>*/}
-                                    {/*<div>{assigned.fromDate}</div>*/}
-                                    {/*<div>{assigned.toDate}</div>*/}
+                                    <AllyLabel label={assigned.ally} key={assigned.ally}/>
+                                    <span>Date:</span>
+                                    <div>{assigned.fromDate}</div>
+                                    <div>{assigned.toDate}</div>
                                 </div>
                             )
                         })}

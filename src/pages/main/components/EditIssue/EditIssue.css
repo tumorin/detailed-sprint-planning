@@ -87,6 +87,11 @@
 .edit-issue-assigned-row {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+}
+
+.edit-issue-assigned-row * {
+    margin: 5px 10px;
 }
 
 .buttons-container {
