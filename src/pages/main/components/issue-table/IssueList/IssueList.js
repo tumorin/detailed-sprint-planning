@@ -1,6 +1,6 @@
 import './IssueList.css';
 
-export default function IssueList({issues}) {
+export default function IssueList({issues, setEditIssueActive}) {
     const issueElems = issues.map(({id, description}) => {
         return (
             <div className="issue-list-row" key={id}>
@@ -21,7 +21,10 @@ export default function IssueList({issues}) {
                 <div className="issue-list-heading">
                     <div className="issue-list-id">№</div>
                     <div className="issue-list-description">Description</div>
-                    <button className="issue-list-add-button"><span className="fa fa-plus-circle"></span></button>
+                    <button className="issue-list-add-button"
+                            onClick={() => setEditIssueActive(true)}>
+                           <span className="fa fa-plus-circle"></span>
+                    </button>
                 </div>
                 {issueElems}
             </div>

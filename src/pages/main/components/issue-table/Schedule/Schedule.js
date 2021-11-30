@@ -28,21 +28,16 @@ function prepareDayList(issues, sprint, days) {
             schedule
         }
     });
-
-    console.log(issueList);
     return {dayList, issueList};
 }
 
 const renderRow = (issue) => {
-    // console.log((issue));
-    // issue.schedule.forEach( value => console.log(value))
     return (
         issue.schedule.map((issueDay, index) => {
-            console.log('issueDay',issueDay);
             if (Array.isArray(issueDay)) {
                 return (
                     <div className="schedule-issue-day" key={index}>
-                        {issueDay.map(label => <AllyLabel label={label}/>)}
+                        {issueDay.map(label => <AllyLabel label={label} key={label}/>)}
                     </div>
                     )
             } else  return (

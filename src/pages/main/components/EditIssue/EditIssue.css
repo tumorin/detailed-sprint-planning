@@ -1,0 +1,103 @@
+.edit-issue-modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.edit-issue-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.edit-issue-container {
+    /*padding: 20px;*/
+    padding-bottom: 10px;
+    border-radius: 12px;
+    background-color: white;
+    /*width: 50vw;*/
+    transform: scale(0.5);
+    transition: 0.4s all;
+}
+
+.edit-issue-container.active {
+    transform: scale(1);
+}
+
+.edit-issue-header {
+    background-color: #212121;
+    color: azure;
+    min-height: 35px;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.edit-issue-id-and-description-container {
+    margin: 10px;
+    padding: 5px;
+}
+
+.edit-issue-id-and-description-container label {
+    margin: 15px;
+}
+
+.edit-issue-id-and-description-container input {
+    margin: 15px;
+    border-radius: 5px;
+    height: 1.5em;
+}
+
+.edit-issue-assignee-container {
+    margin: 10px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.edit-issue-assignee-container label {
+    margin: 15px;
+}
+
+.edit-issue-assignee-container select,input {
+    margin: 15px;
+    border-radius: 5px;
+    height: 1.5em;
+}
+
+.edit-issue-assignee-plus-button {
+    height: 40px;
+    width: 40px;
+    border: #007aff solid;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: #007aff;
+}
+
+.edit-issue-assigned-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.buttons-container button {
+    width: 120px;
+    height: 40px;
+    margin: 10px 20px;
+    border-radius: 8px;
+    background-color: #b3ceec;
+}
