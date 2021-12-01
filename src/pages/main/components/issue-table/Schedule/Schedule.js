@@ -7,7 +7,7 @@ function prepareDayList(issues, sprint, days) {
     const oneDay = 1000 * 3600 * 24;
     const sprintDuration = Math.round((sprintEnd - sprintStart) / oneDay);
     const dayList = [];
-    for (let i = 0; i < sprintDuration; i++) {
+    for (let i = 0; i < sprintDuration - 1; i++) {
         const resultDay = {};
         const currentDay = new Date(sprintStart.getTime() + oneDay * i);
         resultDay.currentDay = currentDay;

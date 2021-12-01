@@ -26,6 +26,7 @@
 }
 
 .issue-list-row {
+    position: relative;
     display: flex;
     flex-direction: row;
     border: 1px solid grey;
@@ -58,6 +59,13 @@
     flex-basis: 75%;
 }
 
+.issue-list-active-button-container {
+    position: absolute;
+    right: 0px;
+    display: flex;
+    flex-direction: row;
+}
+
 .action-button {
     border-radius: 50%;
     box-shadow: 0.375em 0.375em 0 0 rgba(15, 28, 63, 0.125);
@@ -65,9 +73,8 @@
     width: 45px;
     margin-right: 5px;
     background-color: #229cc2;
-    padding: 0px 10px;
+    /*padding: 0px 10px;*/
     position: relative;
-    left: -40px;
     /*opacity: 0;*/
     visibility: hidden;
     transition: 1.5s opacity;

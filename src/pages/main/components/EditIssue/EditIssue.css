@@ -84,16 +84,33 @@
     color: #007aff;
 }
 
+.edit-issue-assigned-container {
+    max-height: 30vh;
+    overflow: auto;
+}
+
+
 .edit-issue-assigned-row {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
 }
 
 .edit-issue-assigned-row * {
     margin: 5px 10px;
 }
 
+.edit-issue-assigneed-delete-button {
+    height: 30px;
+    width: 30px;
+    border: #007aff solid;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: #007aff;
+}
 .buttons-container {
     display: flex;
     justify-content: flex-end;

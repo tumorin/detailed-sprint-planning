@@ -13,6 +13,7 @@ export default function EditIssue({active, setActive}) {
     const [toDate,setToDate] = useState('');
     const [assigneedList, setAssigneedList] = useState([]);
     const team = useSelector(getTeam);
+
     function changeIdHandler(e) {
         setIssueId(e.target.value);
     }
@@ -23,8 +24,15 @@ export default function EditIssue({active, setActive}) {
         setAlly(e.target.value);
     }
     function addAssigneeHandler() {
-        setAssigneedList((oldList) => [...oldList, {ally,fromDate,toDate}])
+        if (ally) {
+            const id = Date.now();
+            setAssigneedList((oldList) => [...oldList, {id, ally, fromDate, toDate}])
+        }
     }
+    function deleteAssigneeHandler(id) {
+        setAssigneedList(assigneedList.filter(assignee => assignee.id !== id));
+    }
+
     function changeFromDateHandler(e) {
         setFromDate(e.target.value);
     }
@@ -50,10 +58,12 @@ export default function EditIssue({active, setActive}) {
                             <input type="text" value={issueDescription} onChange={changeDescriptionHandler}/>
                         </label>
                     </div>
+                    <hr/>
                     <div className="edit-issue-assignee-container">
                         <label>
                          Assignee
                          <select value={ally} onChange={changeAllyHandler}>
+                             <option value='' key='blank value'> </option>
                              {team.map((ally => {
                                  return (
                                      <option value={ally.nick} key={ally.nick}>
@@ -74,18 +84,25 @@ export default function EditIssue({active, setActive}) {
                             <span className="fa fa-plus-square"></span>
                         </div>
                     </div>
+                    <hr />
                     <div className="edit-issue-assigned-container">
                         {assigneedList.map(assigned => {
                             return (
-                                <div className="edit-issue-assigned-row">
+                                <div className="edit-issue-assigned-row" key={assigned.id}>
                                     <AllyLabel label={assigned.ally} key={assigned.ally}/>
                                     <span>Date:</span>
-                                    <div>{assigned.fromDate}</div>
-                                    <div>{assigned.toDate}</div>
+                                    <span>{assigned.fromDate}</span>
+                                    <span>-</span>
+                                    <span>{assigned.toDate}</span>
+                                    <div className="edit-issue-assigneed-delete-button" onClick={() =>deleteAssigneeHandler(assigned.id)}>
+                                        <span className="fa fa-trash"></span>
+                                    </div>
+
                                 </div>
                             )
                         })}
                     </div>
+                    <hr />
                     <div className="buttons-container">
                         <button>Create</button>
                         <button>Cancel</button>

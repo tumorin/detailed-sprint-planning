@@ -5,6 +5,7 @@
     flex-direction: column;
     overflow-wrap: anywhere;
     font-size: 15px;
+    overflow-x: auto;
 }
 .schedule-heading {
     display: flex;
@@ -13,10 +14,11 @@
     padding: 10px;
     font-weight: bold;
     height: 48px;
+    width: fit-content;
 }
 
 .schedule-heading-cell {
-    width: 5rem;
+    width: 100px;
 }
 
 .schedule-row {
@@ -24,10 +26,11 @@
     flex-direction: row;
     border: 1px solid grey;
     padding: 10px;
+    width: fit-content;
 }
 
 .schedule-issue-day {
     /*border: 1px solid grey;*/
-    width: 5rem;
+    width: 100px;
     height: 3rem;
 }

@@ -10,8 +10,11 @@ export default function IssueList({issues, setEditIssueActive}) {
                 <div className="issue-list-description">
                     {description}
                 </div>
-                <button className="action-button "><span className="fa fa-edit "></span></button>
-                <button className="action-button "><span className="fa fa-trash "></span></button>
+                <div className="issue-list-active-button-container">
+                    <button className="action-button "><span className="fa fa-edit "></span></button>
+                    <button className="action-button "><span className="fa fa-trash "></span></button>
+                </div>
+
             </div>
         )
     })
