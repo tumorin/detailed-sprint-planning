@@ -1,0 +1,8 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #212121;
+    color: azure;
+    min-height: 35px;
+}

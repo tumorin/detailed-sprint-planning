@@ -1,0 +1,37 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #212121;
+    color: azure;
+    min-height: 35px;
+}
+
+.sprint-legend {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    min-width: 500px;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+.circle {
+    border: 0.1875em solid #0F1C3F;
+    border-radius: 50%;
+    box-shadow: 0.375em 0.375em 0 0 rgba(15, 28, 63, 0.125);
+    height: 0.8em;
+    width: 0.8em;
+}
+
+.yellow {
+    background-color: yellow;
+}
+.red {
+    background-color: red;
+}
+.green {
+    background-color: green;
+}

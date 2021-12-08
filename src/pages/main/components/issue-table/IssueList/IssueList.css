@@ -1,0 +1,89 @@
+.issue-list-container {
+    min-width: 40%;
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: anywhere;
+    font-size: 15px;
+}
+.issue-list-heading {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid grey;
+    padding: 10px;
+    font-weight: bold;
+    height: 48px;
+}
+.issue-list-add-button {
+    border-radius: 50%;
+    box-shadow: 0.175em 0.175em 0 0 rgba(15, 28, 63, 0.125);
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+    background-color: #229cc2;
+    padding: 0px 10px;
+    /*border: none;*/
+}
+
+.issue-list-row {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid grey;
+    padding: 10px;
+    min-height: 3rem;
+}
+
+.issue-list-row:hover {
+    background-color: #d0e6ed;
+}
+
+.issue-list-row:hover .action-button{
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.issue-list-id {
+    padding: 0px 10px 0px 10px;
+    width: 10em;
+    /*border: 1px solid grey;*/
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 15%;
+}
+
+.issue-list-description {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 75%;
+}
+
+.issue-list-active-button-container {
+    position: absolute;
+    right: 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+.action-button {
+    border-radius: 50%;
+    box-shadow: 0.375em 0.375em 0 0 rgba(15, 28, 63, 0.125);
+    height: 45px;
+    width: 45px;
+    margin-right: 5px;
+    background-color: #229cc2;
+    /*padding: 0px 10px;*/
+    position: relative;
+    /*opacity: 0;*/
+    visibility: hidden;
+    transition: 1.5s opacity;
+}
+
+.action-button span {
+    /*margin: 5px;*/
+}
+
+.hide-element {
+    display: none;
+}
