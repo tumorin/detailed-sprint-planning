@@ -5,4 +5,9 @@ export const setDays = (days) => ({
     payload: days
 })
 
+export const addDays = (days) => ({
+    type: daysActionTypes.ADD_DAYS,
+    payload: days
+})
+
 

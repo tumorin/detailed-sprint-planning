@@ -5,7 +5,6 @@ const issuesReducer = (state=INIT_STATE,action) => {
     switch (action.type) {
         case issuesActionTypes.SET_ISSUES:
             return [
-                ...state,
                 ...action.payload
             ]
         case issuesActionTypes.ADD_NEW_ISSUE:

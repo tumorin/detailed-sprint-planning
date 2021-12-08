@@ -16,8 +16,8 @@ const sprintsData = [
     {
         "id": 3,
         "name": 'Sprint Odin',
-        "start": '15-Dec-2021',
-        "end": '28-Dec-2021',
+        "start": '2021-12-15',
+        "end": '2021-12-28',
         "goal": 'pred-realize version'
     }
 ]
@@ -79,7 +79,6 @@ const daysData = [
         "workWith": [
             "YT",
             "BG",
-
         ]
     },
     {
@@ -103,7 +102,6 @@ const daysData = [
         "dayNumber": 1,
         "issueID": 2,
         "workWith": [
-            "YT",
             "BG"
         ]
     },

@@ -15,7 +15,7 @@ function IssueTable({issues, sprint, days}) {
                 sprint={sprint}
                 days={days}
             />
-            <EditIssue active={editIssueActive} setActive={setEditIssueActive}/>
+            <EditIssue active={editIssueActive} setActive={setEditIssueActive} sprint={sprint} _issueId={''}/>
         </div>
     )
 }

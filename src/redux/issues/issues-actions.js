@@ -7,6 +7,6 @@ export const setIssues = (issues) => ({
 
 export const addNewIssue = (issue) => ({
     type: issuesActionTypes.ADD_NEW_ISSUE,
-    payload: issue
+    payload: [issue]
 })
 
