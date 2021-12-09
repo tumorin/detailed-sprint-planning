@@ -35,15 +35,11 @@ function prepareDayList(issues, sprint, days) {
 const renderRow = (issue) => {
     return (
         issue.schedule.map((issueDay, index) => {
-            if (Array.isArray(issueDay)) {
-                return (
-                    <div className="schedule-issue-day" key={index}>
-                        {issueDay.map((label, indexAlly) => <AllyLabel label={label} key={index + indexAlly}/>)}
-                    </div>
-                    )
-            } else  return (
+            const elem = issueDay.trim() ? <AllyLabel label={issueDay} key={index + issueDay}/>
+                : issueDay;
+            return(
                 <div className="schedule-issue-day" key={index}>
-                    {issueDay}
+                    {elem}
                 </div>
             )
         })

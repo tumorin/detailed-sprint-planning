@@ -6,6 +6,7 @@ import {getTeam} from "../../../../redux/team/team-selectors";
 import AllyLabel from "../AllyLabel/AllyLabel";
 import {addDays} from "../../../../redux/days/days-actions";
 import {addNewIssue} from "../../../../redux/issues/issues-actions";
+import {getIssues} from "../../../../redux/issues/issue-selector";
 
 export default function EditIssue({active, setActive, sprint, _issueId}) {
     const [issueId, setIssueId] = useState(_issueId);
@@ -14,7 +15,10 @@ export default function EditIssue({active, setActive, sprint, _issueId}) {
     const [fromDate,setFromDate] = useState('');
     const [toDate,setToDate] = useState('');
     const [assigneedList, setAssigneedList] = useState([]);
+
     const team = useSelector(getTeam);
+    const  issues = useSelector(getIssues);
+
     const dispatch = useDispatch();
 
     function changeIdHandler(e) {
@@ -72,6 +76,19 @@ export default function EditIssue({active, setActive, sprint, _issueId}) {
             alert('Please enter valid issue description');
             return;
         }
+
+        let isIdFound = false;
+        for (let i = 0; i < issues.length; i ++) {
+            if (issues[i].id === issueId) {
+                isIdFound = true;
+                break;
+            }
+        }
+        if (isIdFound) {
+            alert('Issue ID must be unique');
+            return
+        }
+
         dispatch(addNewIssue({
             "id": issueId,
             "description": issueDescription,
@@ -86,7 +103,7 @@ export default function EditIssue({active, setActive, sprint, _issueId}) {
                 daysToAdd.push({
                     sprintID: sprint.id,
                     issueID: issueId,
-                    workWith: [assigneed.ally],
+                    workWith: assigneed.ally,
                     dayNumber: j,
                 })
             }
@@ -94,6 +111,10 @@ export default function EditIssue({active, setActive, sprint, _issueId}) {
         dispatch(addDays(daysToAdd));
         setActive(false);
         // console.log(issueId, sprint, issueDescription, assigneedList)
+    }
+    function cancelIssueHandler(e) {
+        e.preventDefault();
+        setActive(false);
     }
     return (
         <div className={classnames("edit-issue-modal" , {'active': active})}
@@ -160,7 +181,7 @@ export default function EditIssue({active, setActive, sprint, _issueId}) {
                     <hr />
                     <div className="buttons-container">
                         <button onClick={createIssueHandler}>Create</button>
-                        <button>Cancel</button>
+                        <button onClick={cancelIssueHandler}>Cancel</button>
                     </div>
                 </form>
             </div>
