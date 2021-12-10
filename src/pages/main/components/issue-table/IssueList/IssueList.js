@@ -1,6 +1,15 @@
 import './IssueList.css';
+import {useDispatch} from "react-redux";
+import {deleteIssue} from "../../../../../redux/issues/issues-actions";
 
 export default function IssueList({issues, setEditIssueActive}) {
+
+    const dispatch = useDispatch();
+
+    function deleteIssueHandler(issueId) {
+        dispatch(deleteIssue(issueId))
+    }
+
     const issueElems = issues.map(({id, description}) => {
         return (
             <div className="issue-list-row" key={id}>
@@ -12,7 +21,7 @@ export default function IssueList({issues, setEditIssueActive}) {
                 </div>
                 <div className="issue-list-active-button-container">
                     <button className="action-button "><span className="fa fa-edit "></span></button>
-                    <button className="action-button "><span className="fa fa-trash "></span></button>
+                    <button className="action-button " onClick={() => deleteIssueHandler(id)}><span className="fa fa-trash "></span></button>
                 </div>
 
             </div>
