@@ -86,6 +86,12 @@ const daysData = [
     },
     {
         "sprintID": 3,
+        "dayNumber": 4,
+        "issueID": '1',
+        "workWith": "BG"
+    },
+    {
+        "sprintID": 3,
         "dayNumber": 1,
         "issueID": '487464443',
         "workWith":  "SJ"

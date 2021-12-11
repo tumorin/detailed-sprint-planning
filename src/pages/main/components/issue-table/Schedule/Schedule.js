@@ -21,8 +21,8 @@ function prepareDayList(issues, sprint, days) {
         daysInOneIssue.forEach(day => {
             const workWith = day.workWith;
             if (Array.isArray(schedule[day.dayNumber])) {
-                schedule[day.dayNumber].push(...workWith);
-            } else  schedule[day.dayNumber] = workWith;
+                schedule[day.dayNumber].push(workWith);
+            } else  schedule[day.dayNumber] = [workWith];
         })
         return {
             issueId: issue.id,
@@ -33,24 +33,32 @@ function prepareDayList(issues, sprint, days) {
 }
 
 const renderRow = (issue) => {
+    console.log(issue)
     return (
         issue.schedule.map((issueDay, index) => {
-            const elem = issueDay.trim() ? <AllyLabel label={issueDay} key={index + issueDay}/>
-                : issueDay;
-            return(
-                <div className="schedule-issue-day" key={index}>
-                    {elem}
-                </div>
+            if (Array.isArray(issueDay)) {
+               return (
+                   <div className="schedule-issue-day" key={index}>
+                       {issueDay.map(day => <AllyLabel label={day} key={index + day}/>)}
+                   </div>
+               )
+            } else {
+                return(
+                    <div className="schedule-issue-day" key={index}>
+                        {issueDay}
+                    </div>
+                )
+            }}
             )
-        })
-    )
+        )
+
 }
 
 export default function Schedule({issues, sprint, days}) {
     if (!sprint) return null;
     // console.log('Store in render',days);
     const {dayList, issueList} = prepareDayList(issues, sprint, days);
-
+    // console.log(issueList)
     return (
         <>
             <div className="schedule-container">

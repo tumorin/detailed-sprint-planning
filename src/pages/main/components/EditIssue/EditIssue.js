@@ -95,16 +95,18 @@ export default function EditIssue({active, setActive, sprint, _issueId}) {
             "status": "to do",
         }));
         const daysToAdd = [];
+        const sprintStart = new Date(sprint.start);
         assigneedList.forEach(assigneed => {
             const firstDayOfAssigned = new Date(assigneed.fromDate);
-            const lastDayOfAssigned = new Date(assigneed.toDate);
-            console.log(firstDayOfAssigned + 0, lastDayOfAssigned);
-            for (let j = 0, current = new Date(assigneed.fromDate); current < lastDayOfAssigned; j++, current.setDate(current.getDate() + 1)) {
+            const lastDayOfAssignedPlusOne = new Date(assigneed.toDate);
+            lastDayOfAssignedPlusOne.setDate(lastDayOfAssignedPlusOne.getDate() + 1)
+            const daysShift = Math.round((firstDayOfAssigned - sprintStart) / oneDay);
+            for (let j = 0, current = new Date(assigneed.fromDate); current < lastDayOfAssignedPlusOne; j++, current.setDate(current.getDate() + 1)) {
                 daysToAdd.push({
                     sprintID: sprint.id,
                     issueID: issueId,
                     workWith: assigneed.ally,
-                    dayNumber: j,
+                    dayNumber: j + daysShift,
                 })
             }
         });
