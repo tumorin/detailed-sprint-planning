@@ -33,7 +33,6 @@ function prepareDayList(issues, sprint, days) {
 }
 
 const renderRow = (issue) => {
-    console.log(issue)
     return (
         issue.schedule.map((issueDay, index) => {
             if (Array.isArray(issueDay)) {

@@ -1,10 +1,10 @@
 const getIssues = store => store.issues;
 const getUnfinishedIssue = store => getIssues(store).filter(issue => issue.status !== 'done');
-const getIssueById = (store,_id) => {
+const getIssueById = (issues,_id) => {
     let result = null;
-    for (let i = 0; i < store.issues.length; i ++) {
-        if (store.issues[i].id === _id) {
-            result = store.issues[i];
+    for (let i = 0; i < issues.length; i ++) {
+        if (issues[i].id === _id) {
+            result = issues[i];
             break;
         }
     }

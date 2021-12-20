@@ -1,15 +1,17 @@
 import './EditIssue.css';
 import classnames from 'classnames';
 import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector, useStore} from "react-redux";
 import {getTeam} from "../../../../redux/team/team-selectors";
 import AllyLabel from "../AllyLabel/AllyLabel";
 import {addDays} from "../../../../redux/days/days-actions";
 import {addNewIssue} from "../../../../redux/issues/issues-actions";
-import {getIssues} from "../../../../redux/issues/issue-selector";
+import {getIssueById, getIssues} from "../../../../redux/issues/issue-selector";
+import {getDaysByIssueId} from "../../../../redux/days/days-selectors";
 
-export default function EditIssue({active, setActive, sprint, _issueId}) {
-    const [issueId, setIssueId] = useState(_issueId);
+export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
+    const [isPropertyForEditingSet, setIsPropertyForEditingSet] =useState(false);
+    const [issueId, setIssueId] = useState('');
     const [issueDescription, setIssueDescription] = useState('');
     const [ally, setAlly] =useState('');
     const [fromDate,setFromDate] = useState('');
@@ -17,9 +19,69 @@ export default function EditIssue({active, setActive, sprint, _issueId}) {
     const [assigneedList, setAssigneedList] = useState([]);
 
     const team = useSelector(getTeam);
-    const  issues = useSelector(getIssues);
+    const issues = useSelector(getIssues);
+    const state = useStore().getState();
 
     const dispatch = useDispatch();
+
+    function prepareAssigneedList(daysForIssue, sprint) {
+        function getSprintDayByNumber(sprint, dayNumber) {
+            const sprintStart = new Date(sprint.start);
+            const oneDay = 1000 * 3600 * 24;
+            return (new Date(sprintStart.getTime() + oneDay * dayNumber)).toDateString().slice(0,10)
+        }
+
+       const result = [];
+       const daysForIssueForSprint = daysForIssue.filter(day => day.sprintID === sprint.id);
+       const allys =  new Set();
+       daysForIssueForSprint.forEach(day => {
+           allys.add(day.workWith);
+       })
+        allys.forEach(ally => {
+            const daysForAlly = daysForIssueForSprint.filter(day => day.workWith === ally);
+            console.log(ally, daysForAlly);
+            const firstDayOfAssign = daysForAlly[0];
+            let previousDayOfAssign = {...firstDayOfAssign};
+            let isFirstOnSeq = true;
+            daysForAlly.forEach( (day, index) => {
+                const isLastElem = (index === daysForAlly.length -1);
+                const isNoNextElem = (!daysForAlly[index + 1]);
+                const isNextArrElemNotNextDay = (daysForAlly[index + 1]?.dayNumber !== day.dayNumber + 1);
+                if (isLastElem || isNoNextElem || isNextArrElemNotNextDay) {
+                    const fromDate_ = isFirstOnSeq ? day : previousDayOfAssign;
+                    result.push({id: ally + index, ally,
+                        fromDate: getSprintDayByNumber(sprint, fromDate_.dayNumber),
+                        toDate: getSprintDayByNumber(sprint, day.dayNumber)})
+                    isFirstOnSeq = true;
+                    previousDayOfAssign = {...day};
+                } else {
+                    isFirstOnSeq = false;
+                    previousDayOfAssign = {...day};
+                    }
+            })
+        })
+       return result;
+    }
+
+    const isEditMode = !!issueIdToEdit ;
+    if (!isEditMode && !isPropertyForEditingSet) {
+        // clear up data for creating a new issue
+        setIssueId('');
+        setIssueDescription('');
+        setAssigneedList([]);
+        setIsPropertyForEditingSet(true);
+    }
+    const isNewIssueToEdit = issueIdToEdit !== issueId;
+    if (isEditMode && (!isPropertyForEditingSet || isNewIssueToEdit)) {
+        // fill in form from issue for editing data
+        const editIssue = getIssueById(issues, issueIdToEdit);
+        if (!editIssue) return null;
+        setIssueId(editIssue.id);
+        setIssueDescription(editIssue.description);
+        const daysForIssue = getDaysByIssueId(state, editIssue.id);
+        setAssigneedList(prepareAssigneedList(daysForIssue, sprint));
+        setIsPropertyForEditingSet(true);
+    }
 
     function changeIdHandler(e) {
         setIssueId(e.target.value);
@@ -39,16 +101,15 @@ export default function EditIssue({active, setActive, sprint, _issueId}) {
             if (firstDayOfAssigned < sprintStart) {
                 window.alert('From date must not be early then sprint start');
                 return;
-            };
+            }
             if (lastDayOfAssigned > sprintEnd) {
-                console.log(lastDayOfAssigned , sprintEnd,(lastDayOfAssigned - sprintEnd) / (1000 * 3600))
                 window.alert('To date must not be later then sprint end');
                 return;
-            };
+            }
             if (lastDayOfAssigned < firstDayOfAssigned) {
                 window.alert('From date must not be early then To date');
                 return;
-            };
+            }
             const id = Date.now();
             setAssigneedList((oldList) => [...oldList, {id, ally, fromDate, toDate}])
         } else window.alert('Please fill in data correctly');
@@ -111,11 +172,12 @@ export default function EditIssue({active, setActive, sprint, _issueId}) {
             }
         });
         dispatch(addDays(daysToAdd));
+        setIsPropertyForEditingSet(false);
         setActive(false);
-        // console.log(issueId, sprint, issueDescription, assigneedList)
     }
     function cancelIssueHandler(e) {
         e.preventDefault();
+        setIsPropertyForEditingSet(false);
         setActive(false);
     }
     return (

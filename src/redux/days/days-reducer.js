@@ -12,6 +12,8 @@ const daysReducer = (state=INIT_STATE,action) => {
                 ...state,
                 ...action.payload
             ]
+        case daysActionTypes.DELETE_DAYS_BY_ISSUE_ID:
+            return state.filter(day => day.issueID !== action.payload)
         default: return state;
     }
 }
