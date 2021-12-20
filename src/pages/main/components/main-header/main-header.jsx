@@ -5,7 +5,6 @@ import {getCurrentSprint} from "../../../../redux/sprints/sprints-selectors";
 function MainHeader() {
     const sprint = useSelector(getCurrentSprint);
     if (!sprint) return null;
-    console.log(sprint);
     return(
         <header className="header">
             <span className="sprint-name">{sprint.name}</span>

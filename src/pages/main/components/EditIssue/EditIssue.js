@@ -4,8 +4,8 @@ import {useState} from "react";
 import {useDispatch, useSelector, useStore} from "react-redux";
 import {getTeam} from "../../../../redux/team/team-selectors";
 import AllyLabel from "../AllyLabel/AllyLabel";
-import {addDays} from "../../../../redux/days/days-actions";
-import {addNewIssue} from "../../../../redux/issues/issues-actions";
+import {addDays, deleteDaysByIssueId} from "../../../../redux/days/days-actions";
+import {addNewIssue, deleteIssue} from "../../../../redux/issues/issues-actions";
 import {getIssueById, getIssues} from "../../../../redux/issues/issue-selector";
 import {getDaysByIssueId} from "../../../../redux/days/days-selectors";
 
@@ -28,7 +28,7 @@ export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
         function getSprintDayByNumber(sprint, dayNumber) {
             const sprintStart = new Date(sprint.start);
             const oneDay = 1000 * 3600 * 24;
-            return (new Date(sprintStart.getTime() + oneDay * dayNumber)).toDateString().slice(0,10)
+            return (new Date(sprintStart.getTime() + oneDay * dayNumber)).toDateString()
         }
 
        const result = [];
@@ -145,11 +145,15 @@ export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
                 break;
             }
         }
-        if (isIdFound) {
+        if (isIdFound && !isEditMode) {
             alert('Issue ID must be unique');
             return
         }
-
+        if (isEditMode) {
+            // delete old issue and days records from state
+            dispatch(deleteIssue(issueId));
+            dispatch((deleteDaysByIssueId(issueId)))
+        }
         dispatch(addNewIssue({
             "id": issueId,
             "description": issueDescription,
