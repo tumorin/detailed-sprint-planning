@@ -12,6 +12,8 @@ const issuesReducer = (state=INIT_STATE,action) => {
                 ...state,
                 ...action.payload
             ]
+        case issuesActionTypes.DELETE_ISSUE:
+            return state.filter(issue => issue.id !== action.payload)
         default: return state;
     }
 }

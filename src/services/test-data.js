@@ -45,27 +45,27 @@ const teamData = [
 
 const issuesData = [
     {
-        "id": 1,
+        "id": '1',
         "description": 'Set up the project on devs machines',
         "status": "in progress",
     },
     {
-        "id": 278433,
+        "id": '278433',
         "description": 'Set up GIT',
         "status": "done",
     },
     {
-        "id": 3,
+        "id": '3',
         "description": 'Set up CI',
         "status": "to do",
     },
     {
-        "id": 487464443,
+        "id": '487464443',
         "description": 'Set up hosting',
         "status": "to do",
     },
     {
-        "id": 5,
+        "id": '5',
         "description": 'Prepare requirements for the next sprint',
         "status": "to do",
     },
@@ -75,35 +75,32 @@ const daysData = [
     {
         "sprintID": 3,
         "dayNumber": 5,
-        "issueID": 1,
-        "workWith": [
-            "YT",
-            "BG",
-        ]
+        "issueID": '1',
+        "workWith": "YT"
     },
     {
         "sprintID": 3,
         "dayNumber": 2,
-        "issueID": 1,
-        "workWith": [
-            "BG"
-        ]
+        "issueID": '1',
+        "workWith": "BG"
+    },
+    {
+        "sprintID": 3,
+        "dayNumber": 4,
+        "issueID": '1',
+        "workWith": "BG"
     },
     {
         "sprintID": 3,
         "dayNumber": 1,
-        "issueID": 487464443,
-        "workWith": [
-            "SJ"
-        ]
+        "issueID": '487464443',
+        "workWith":  "SJ"
     },
     {
         "sprintID": 2,
         "dayNumber": 1,
-        "issueID": 2,
-        "workWith": [
-            "BG"
-        ]
+        "issueID": '2',
+        "workWith": "BG"
     },
 ]
 

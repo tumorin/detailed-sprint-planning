@@ -32,6 +32,8 @@ function Main() {
             LoadDays();
         }
     },[sprint, team])
+
+    issues.sort((a,b) => a.id - b.id);
     return(
         <div className="main-container">
             <MainHeader />

@@ -6,7 +6,7 @@ import {useState} from "react";
 
 
 function IssueTable({issues, sprint, days}) {
-    const [editIssueActive, setEditIssueActive] = useState(false)
+    const [editIssueActive, setEditIssueActive] = useState({isActive:false,issueIdToEdit: ''})
     return(
         <div className="issue-table-container">
             <IssueList issues={issues} setEditIssueActive={setEditIssueActive}/>
@@ -15,7 +15,7 @@ function IssueTable({issues, sprint, days}) {
                 sprint={sprint}
                 days={days}
             />
-            <EditIssue active={editIssueActive} setActive={setEditIssueActive} sprint={sprint} _issueId={''}/>
+            <EditIssue active={editIssueActive.isActive} setActive={setEditIssueActive} sprint={sprint} issueIdToEdit={editIssueActive.issueIdToEdit}/>
         </div>
     )
 }

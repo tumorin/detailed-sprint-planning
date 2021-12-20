@@ -10,3 +10,8 @@ export const addNewIssue = (issue) => ({
     payload: [issue]
 })
 
+export const deleteIssue = (issueId) => ({
+    type: issuesActionTypes.DELETE_ISSUE,
+    payload: issueId
+})
+

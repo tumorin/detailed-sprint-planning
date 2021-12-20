@@ -10,4 +10,9 @@ export const addDays = (days) => ({
     payload: days
 })
 
+export const deleteDaysByIssueId = (issueId) => ({
+    type: daysActionTypes.DELETE_DAYS_BY_ISSUE_ID,
+    payload: issueId
+})
+
 
