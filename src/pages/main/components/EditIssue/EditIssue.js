@@ -8,6 +8,7 @@ import {addDays, deleteDaysByIssueId} from "../../../../redux/days/days-actions"
 import {addNewIssue, deleteIssue} from "../../../../redux/issues/issues-actions";
 import {getIssueById, getIssues} from "../../../../redux/issues/issue-selector";
 import {getDaysByIssueId} from "../../../../redux/days/days-selectors";
+import {format} from "date-fns";
 
 export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
     const [isPropertyForEditingSet, setIsPropertyForEditingSet] =useState(false);
@@ -28,10 +29,12 @@ export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
         function getSprintDayByNumber(sprint, dayNumber) {
             const sprintStart = new Date(sprint.start);
             const oneDay = 1000 * 3600 * 24;
-            return (new Date(sprintStart.getTime() + oneDay * dayNumber)).toDateString()
+            const dt = new Date(sprintStart.getTime() + oneDay * dayNumber);
+            // return dt.toDateString();
+            return format(dt, "LLL/dd/yyyy")
         }
 
-       const result = [];
+       let result = [];
        const daysForIssueForSprint = daysForIssue.filter(day => day.sprintID === sprint.id);
        const allys =  new Set();
        daysForIssueForSprint.forEach(day => {
@@ -39,26 +42,23 @@ export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
        })
         allys.forEach(ally => {
             const daysForAlly = daysForIssueForSprint.filter(day => day.workWith === ally);
-            console.log(ally, daysForAlly);
-            const firstDayOfAssign = daysForAlly[0];
-            let previousDayOfAssign = {...firstDayOfAssign};
-            let isFirstOnSeq = true;
-            daysForAlly.forEach( (day, index) => {
-                const isLastElem = (index === daysForAlly.length -1);
-                const isNoNextElem = (!daysForAlly[index + 1]);
-                const isNextArrElemNotNextDay = (daysForAlly[index + 1]?.dayNumber !== day.dayNumber + 1);
-                if (isLastElem || isNoNextElem || isNextArrElemNotNextDay) {
-                    const fromDate_ = isFirstOnSeq ? day : previousDayOfAssign;
-                    result.push({id: ally + index, ally,
-                        fromDate: getSprintDayByNumber(sprint, fromDate_.dayNumber),
-                        toDate: getSprintDayByNumber(sprint, day.dayNumber)})
-                    isFirstOnSeq = true;
-                    previousDayOfAssign = {...day};
-                } else {
-                    isFirstOnSeq = false;
-                    previousDayOfAssign = {...day};
-                    }
-            })
+            const groupOfArr = [[daysForAlly[0]]];
+            let groupNum = 0;
+            for (let i = 1; i < daysForAlly.length; i++) {
+                if(daysForAlly[i].dayNumber !== daysForAlly[i - 1].dayNumber + 1 ) {
+                    groupNum++;
+                }
+                if (Array.isArray(groupOfArr[groupNum])) {
+                    groupOfArr[groupNum].push(daysForAlly[i])
+                } else groupOfArr[groupNum] = [daysForAlly[i]]
+            }
+            result.push(...groupOfArr.reduce((acc, group, index) => {
+                acc.push({id: ally + index, ally,
+                    fromDate: getSprintDayByNumber(sprint, group[0].dayNumber),
+                    toDate: getSprintDayByNumber(sprint, group[group.length - 1].dayNumber)
+                })
+                return acc
+            },[]))
         })
        return result;
     }
@@ -111,7 +111,11 @@ export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
                 return;
             }
             const id = Date.now();
-            setAssigneedList((oldList) => [...oldList, {id, ally, fromDate, toDate}])
+            // setAssigneedList((oldList) => [...oldList, {id, ally,  fromDate, toDate}])
+            setAssigneedList((oldList) => [...oldList, {id, ally,
+                fromDate: format(firstDayOfAssigned,"LLL/dd/yyyy"),
+                toDate: format(lastDayOfAssigned,"LLL/dd/yyyy")}])
+
         } else window.alert('Please fill in data correctly');
     }
 

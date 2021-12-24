@@ -8,9 +8,12 @@ export default function IssueList({issues, setEditIssueActive}) {
     const dispatch = useDispatch();
 
     function deleteIssueHandler(issueId) {
-        dispatch(deleteIssue(issueId));
-        dispatch(deleteDaysByIssueId(issueId));
+        if (window.confirm("Are you sure you want to delete the issue?")) {
+            dispatch(deleteIssue(issueId));
+            dispatch(deleteDaysByIssueId(issueId));
+        }
     }
+
     function editIssueHandler(issueId) {
         setEditIssueActive({isActive:true, issueIdToEdit:issueId});
     }
