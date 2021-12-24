@@ -36,3 +36,35 @@ export function prepareAssigneedList(daysForIssue, sprint) {
     })
     return result;
 }
+
+export function prepareDayList(issues, sprint, days) {
+    const sprintStart = new Date(sprint.start);
+    const sprintEnd = new Date(sprint.end);
+    const oneDay = 1000 * 3600 * 24;
+    const sprintDuration = Math.round((sprintEnd - sprintStart) / oneDay);
+    const dayList = [];
+    for (let i = 0; i < sprintDuration - 1; i++) {
+        const resultDay = {};
+        const currentDay = new Date(sprintStart.getTime() + oneDay * i);
+        resultDay.currentDay = currentDay;
+        resultDay.shortDate = currentDay.toDateString().slice(0,10);
+        dayList.push(resultDay);
+    }
+    const issueList = issues.map(issue => {
+        const schedule = Array(sprintDuration);
+        schedule.fill(' ',0,sprintDuration -1);
+        const daysInOneIssue = days.filter(day => day.issueID === issue.id);
+        daysInOneIssue.forEach(day => {
+            const workWith = day.workWith;
+            if (Array.isArray(schedule[day.dayNumber])) {
+                schedule[day.dayNumber].push(workWith);
+            } else  schedule[day.dayNumber] = [workWith];
+        })
+        return {
+            issueId: issue.id,
+            schedule
+        }
+    });
+    return {dayList, issueList};
+}
+
