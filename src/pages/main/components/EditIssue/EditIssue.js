@@ -9,6 +9,7 @@ import {addNewIssue, deleteIssue} from "../../../../redux/issues/issues-actions"
 import {getIssueById, getIssues} from "../../../../redux/issues/issue-selector";
 import {getDaysByIssueId} from "../../../../redux/days/days-selectors";
 import {format} from "date-fns";
+import {prepareAssigneedList} from "../../../../utils/dayUtils";
 
 export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
     const [isPropertyForEditingSet, setIsPropertyForEditingSet] =useState(false);
@@ -24,44 +25,6 @@ export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
     const state = useStore().getState();
 
     const dispatch = useDispatch();
-
-    function prepareAssigneedList(daysForIssue, sprint) {
-        function getSprintDayByNumber(sprint, dayNumber) {
-            const sprintStart = new Date(sprint.start);
-            const oneDay = 1000 * 3600 * 24;
-            const dt = new Date(sprintStart.getTime() + oneDay * dayNumber);
-            // return dt.toDateString();
-            return format(dt, "LLL/dd/yyyy")
-        }
-
-       let result = [];
-       const daysForIssueForSprint = daysForIssue.filter(day => day.sprintID === sprint.id);
-       const allys =  new Set();
-       daysForIssueForSprint.forEach(day => {
-           allys.add(day.workWith);
-       })
-        allys.forEach(ally => {
-            const daysForAlly = daysForIssueForSprint.filter(day => day.workWith === ally);
-            const groupOfArr = [[daysForAlly[0]]];
-            let groupNum = 0;
-            for (let i = 1; i < daysForAlly.length; i++) {
-                if(daysForAlly[i].dayNumber !== daysForAlly[i - 1].dayNumber + 1 ) {
-                    groupNum++;
-                }
-                if (Array.isArray(groupOfArr[groupNum])) {
-                    groupOfArr[groupNum].push(daysForAlly[i])
-                } else groupOfArr[groupNum] = [daysForAlly[i]]
-            }
-            result.push(...groupOfArr.reduce((acc, group, index) => {
-                acc.push({id: ally + index, ally,
-                    fromDate: getSprintDayByNumber(sprint, group[0].dayNumber),
-                    toDate: getSprintDayByNumber(sprint, group[group.length - 1].dayNumber)
-                })
-                return acc
-            },[]))
-        })
-       return result;
-    }
 
     const isEditMode = !!issueIdToEdit ;
     if (!isEditMode && !isPropertyForEditingSet) {
@@ -111,7 +74,6 @@ export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
                 return;
             }
             const id = Date.now();
-            // setAssigneedList((oldList) => [...oldList, {id, ally,  fromDate, toDate}])
             setAssigneedList((oldList) => [...oldList, {id, ally,
                 fromDate: format(firstDayOfAssigned,"LLL/dd/yyyy"),
                 toDate: format(lastDayOfAssigned,"LLL/dd/yyyy")}])
