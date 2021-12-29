@@ -17,7 +17,7 @@ export default function IssueList({issues, setEditIssueActive}) {
     function editIssueHandler(issueId) {
         setEditIssueActive({isActive:true, issueIdToEdit:issueId});
     }
-
+    if (!issues) return (<div>Application is loading</div>)
     const issueElems = issues.map(({id, description}) => {
         return (
             <div className="issue-list-row" key={id}>
