@@ -7,6 +7,13 @@ export function getSprintDayByNumber(sprint, dayNumber) {
     return format(dt, "LLL/dd/yyyy")
 }
 
+export function getSprintDayByNumberISO(sprint, dayNumber) {
+    const sprintStart = new Date(sprint.start);
+    const oneDay = 1000 * 3600 * 24;
+    const dt = new Date(sprintStart.getTime() + oneDay * dayNumber);
+    return format(dt, "yyyy-MM-dd")
+}
+
 export function prepareAssigneedList(daysForIssue, sprint) {
     let result = [];
     const daysForIssueForSprint = daysForIssue.filter(day => day.sprintID === sprint.id);
