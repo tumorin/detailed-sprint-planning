@@ -8,13 +8,16 @@ export default function IssueList({issues, setEditIssueActive}) {
     const dispatch = useDispatch();
 
     function deleteIssueHandler(issueId) {
-        dispatch(deleteIssue(issueId));
-        dispatch(deleteDaysByIssueId(issueId));
+        if (window.confirm("Are you sure you want to delete the issue?")) {
+            dispatch(deleteIssue(issueId));
+            dispatch(deleteDaysByIssueId(issueId));
+        }
     }
+
     function editIssueHandler(issueId) {
         setEditIssueActive({isActive:true, issueIdToEdit:issueId});
     }
-
+    if (!issues) return (<div>Application is loading</div>)
     const issueElems = issues.map(({id, description}) => {
         return (
             <div className="issue-list-row" key={id}>

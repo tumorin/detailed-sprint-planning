@@ -16,8 +16,8 @@ const sprintsData = [
     {
         "id": 3,
         "name": 'Sprint Odin',
-        "start": '2021-12-15',
-        "end": '2021-12-28',
+        "start": '2021-12-22',
+        "end": '2022-01-04',
         "goal": 'pred-realize version'
     }
 ]

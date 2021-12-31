@@ -8,6 +8,8 @@ import {addDays, deleteDaysByIssueId} from "../../../../redux/days/days-actions"
 import {addNewIssue, deleteIssue} from "../../../../redux/issues/issues-actions";
 import {getIssueById, getIssues} from "../../../../redux/issues/issue-selector";
 import {getDaysByIssueId} from "../../../../redux/days/days-selectors";
+import {format} from "date-fns";
+import {prepareAssigneedList} from "../../../../utils/dayUtils";
 
 export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
     const [isPropertyForEditingSet, setIsPropertyForEditingSet] =useState(false);
@@ -23,45 +25,6 @@ export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
     const state = useStore().getState();
 
     const dispatch = useDispatch();
-
-    function prepareAssigneedList(daysForIssue, sprint) {
-        function getSprintDayByNumber(sprint, dayNumber) {
-            const sprintStart = new Date(sprint.start);
-            const oneDay = 1000 * 3600 * 24;
-            return (new Date(sprintStart.getTime() + oneDay * dayNumber)).toDateString()
-        }
-
-       const result = [];
-       const daysForIssueForSprint = daysForIssue.filter(day => day.sprintID === sprint.id);
-       const allys =  new Set();
-       daysForIssueForSprint.forEach(day => {
-           allys.add(day.workWith);
-       })
-        allys.forEach(ally => {
-            const daysForAlly = daysForIssueForSprint.filter(day => day.workWith === ally);
-            console.log(ally, daysForAlly);
-            const firstDayOfAssign = daysForAlly[0];
-            let previousDayOfAssign = {...firstDayOfAssign};
-            let isFirstOnSeq = true;
-            daysForAlly.forEach( (day, index) => {
-                const isLastElem = (index === daysForAlly.length -1);
-                const isNoNextElem = (!daysForAlly[index + 1]);
-                const isNextArrElemNotNextDay = (daysForAlly[index + 1]?.dayNumber !== day.dayNumber + 1);
-                if (isLastElem || isNoNextElem || isNextArrElemNotNextDay) {
-                    const fromDate_ = isFirstOnSeq ? day : previousDayOfAssign;
-                    result.push({id: ally + index, ally,
-                        fromDate: getSprintDayByNumber(sprint, fromDate_.dayNumber),
-                        toDate: getSprintDayByNumber(sprint, day.dayNumber)})
-                    isFirstOnSeq = true;
-                    previousDayOfAssign = {...day};
-                } else {
-                    isFirstOnSeq = false;
-                    previousDayOfAssign = {...day};
-                    }
-            })
-        })
-       return result;
-    }
 
     const isEditMode = !!issueIdToEdit ;
     if (!isEditMode && !isPropertyForEditingSet) {
@@ -111,7 +74,10 @@ export default function EditIssue({active, setActive, sprint, issueIdToEdit}) {
                 return;
             }
             const id = Date.now();
-            setAssigneedList((oldList) => [...oldList, {id, ally, fromDate, toDate}])
+            setAssigneedList((oldList) => [...oldList, {id, ally,
+                fromDate: format(firstDayOfAssigned,"LLL/dd/yyyy"),
+                toDate: format(lastDayOfAssigned,"LLL/dd/yyyy")}])
+
         } else window.alert('Please fill in data correctly');
     }
 
