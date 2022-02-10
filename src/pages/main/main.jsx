@@ -3,7 +3,6 @@ import {useEffect} from "react";
 import {useSelector} from "react-redux";
 // components
 import MainHeader from './components/main-header/main-header';
-import MainFooter from './components/main-footer/main-footer';
 import IssueTable from './components/issue-table/issue-table';
 // selectors
 import {getCurrentSprint} from "../../redux/sprints/sprints-selectors";
@@ -31,7 +30,7 @@ function Main() {
         if (days.length === 0) {
             LoadDays();
         }
-    },[sprint, team])
+    })
 
     issues.sort((a,b) => a.id - b.id);
     return(
@@ -42,7 +41,7 @@ function Main() {
                 sprint={sprint}
                 days={days}
             />
-            <MainFooter />
+            {/*<MainFooter />*/}
         </div>
     )
 }
