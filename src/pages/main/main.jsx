@@ -2,7 +2,6 @@ import './main.css';
 import {useEffect} from "react";
 import {useSelector} from "react-redux";
 // components
-import MainHeader from './components/main-header/main-header';
 import IssueTable from './components/issue-table/issue-table';
 // selectors
 import {getCurrentSprint} from "../../redux/sprints/sprints-selectors";
@@ -35,7 +34,7 @@ function Main() {
     issues.sort((a,b) => a.id - b.id);
     return(
         <div className="main-container">
-            <MainHeader />
+            {/*<MainHeader />*/}
             <IssueTable
                 issues={issues}
                 sprint={sprint}

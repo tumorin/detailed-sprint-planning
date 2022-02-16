@@ -69,6 +69,7 @@ export function prepareDayList(issues, sprint, days) {
         })
         return {
             issueId: issue.id,
+            description: issue.description,
             schedule
         }
     });

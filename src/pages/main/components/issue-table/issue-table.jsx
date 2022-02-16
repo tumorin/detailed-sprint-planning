@@ -78,9 +78,11 @@ function IssueTable({issues, sprint, days}) {
         const issueInGrid = {};
         issueInGrid.id = issue.issueId;
         issueInGrid.issueId = issue.issueId;
+        issueInGrid.description = issue.description;
         issue.schedule.forEach((day, index) => {
             issueInGrid[index] = day;
         })
+        // console.log(issueInGrid)
         return issueInGrid
     });
 
@@ -95,7 +97,7 @@ function IssueTable({issues, sprint, days}) {
             ],
         },
         { field: 'issueId', headerName: 'Issue №', width: 150 },
-        { field: 'issueDescription', headerName: 'Issue description', width: 350 },
+        { field: 'description', headerName: 'Issue description', width: 350 },
     ];
 
     columns = [...columns, ...columnsDays];

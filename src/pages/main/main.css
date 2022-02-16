@@ -1,8 +1,9 @@
 .main-container {
     /*background-color: aqua;*/
     min-width: 512px;
-    min-height: 100%;
+    min-height: 250px;
     height: 100%;
-    display: flex;
+    /*flex: 1 auto;*/
+    /*display: flex;*/
     flex-direction: column;
 }
