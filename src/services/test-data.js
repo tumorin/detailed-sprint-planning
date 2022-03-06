@@ -2,22 +2,22 @@ const sprintsData = [
     {
         "id": 1,
         "name": 'Sprint Valhalla',
-        "start": '17-Nov-2021',
-        "end": '30-Nov-2021',
+        "start": '2021-11-17',
+        "end": '2021-11-30',
         "goal": 'create MVP'
     },
     {
         "id": 2,
         "name": 'Sprint Asgard',
-        "start": '01-Dec-2021',
-        "end": '14-Dec-2021',
+        "start": '2022-01-16',
+        "end": '2022-02-02',
         "goal": 'add authorization'
     },
     {
         "id": 3,
         "name": 'Sprint Odin',
-        "start": '2021-12-22',
-        "end": '2022-01-04',
+        "start": '2022-02-16',
+        "end": '2022-03-02',
         "goal": 'pred-realize version'
     }
 ]

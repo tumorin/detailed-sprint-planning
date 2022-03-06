@@ -10,3 +10,7 @@ export const addNewSprint = (sprint) => ({
     payload: sprint
 })
 
+export const setSprint = (sprint) => ({
+    type: sprintsActionTypes.SET_SPRINT,
+    payload: sprint
+})

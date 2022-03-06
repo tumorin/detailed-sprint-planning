@@ -1,14 +1,16 @@
 import {useSelector} from "react-redux";
 import {getSprints} from "../../redux/sprints/sprints-selectors";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {loadSprints} from "../../services/data-integration";
 import {DataGrid, GridActionsCellItem} from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {EditSprintModal} from "./EditSprintModal";
 
 export const Sprints = () => {
     const sprints = useSelector(getSprints);
-
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [sprintToEdit, setSprintToEdit] = useState(null);
     useEffect(() => {
         if (!sprints) {
             loadSprints();
@@ -16,13 +18,20 @@ export const Sprints = () => {
     });
 
     function editSprintHandler(sprintId) {
+        const sprint = sprints.find( sprint => sprint.id === sprintId)
+        setSprintToEdit(sprint);
+        setIsEditModalOpen(true);
         // setEditIssueActive({isActive: true, issueIdToEdit: issueId});
     }
+
+    // function onChangeEditFormHandler(event, field) {
+    //     const newState = {...editFormData, ...{[field]: event.target.value}};
+    //     setEditFormData(newState);
+    // }
 
     if (!sprints) return (
         <div>Data is loading</div>
     )
-    console.log(sprints)
     const columns = [
         {
             field: 'actions',
@@ -55,6 +64,10 @@ export const Sprints = () => {
             <DataGrid  columns={columns} rows={rows}
                        hideFooter
             />
+            {isEditModalOpen && <EditSprintModal
+                setIsEditModalOpen={setIsEditModalOpen}
+                sprint={sprintToEdit}
+            />}
         </div>
     )
 }
