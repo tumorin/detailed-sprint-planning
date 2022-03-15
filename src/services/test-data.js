@@ -24,18 +24,21 @@ const sprintsData = [
 
 const teamData = [
     {
+        "id": "1",
         "name": "Yuriy",
         "surname": 'Tumorin',
         "nick": "YT",
         "active": true,
     },
     {
+        "id": "2",
         "name": "Bill",
         "surname": 'Gates',
         "nick": "BG",
         "active": true,
     },
     {
+        "id": "3",
         "name": "Steve",
         "surname": 'Jobs',
         "nick": "SJ",

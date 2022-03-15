@@ -12,7 +12,7 @@ import {NavLink} from "react-router-dom";
 export function AppMainBar() {
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 0 }}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -45,7 +45,15 @@ export function AppMainBar() {
                             </Typography>
                         </NavLink>
                     </MenuItem>
-                    <MenuItem>Team</MenuItem>
+                    <MenuItem>
+                        <NavLink to="/team"   style={{
+                            textDecoration: 'none'
+                        }}>
+                            <Typography color="white" >
+                                Team
+                            </Typography>
+                        </NavLink>
+                    </MenuItem>
                 </Toolbar>
             </AppBar>
         </Box>

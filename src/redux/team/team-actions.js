@@ -10,3 +10,8 @@ export const addNewTeamMember = (teamMember) => ({
     payload: teamMember
 })
 
+export const setTeamMember = (teamMember) => ({
+    type: teamActionTypes.SET_TEAM_MEMBER,
+    payload: teamMember
+})
+
